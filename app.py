@@ -4,6 +4,7 @@ from datetime import datetime
 from flask_migrate import Migrate
 from sqlalchemy import func
 from math import ceil
+from yaml import safe_load
 
 from lib.alphavantage_api import AlphaVantageAPI
 
@@ -53,10 +54,11 @@ def create_db() -> str:
     db.create_all()
     return 'Create database succeed!'
 
-
 def get_api_key():
-    with open("conf/api_key", "r") as f:
-        return f.read()
+    with open('setting.yaml', 'r') as file:
+        yaml_data = safe_load(file)
+    return yaml_data['api_key']
+
 
 @app.route('/retrieve_raw_data')
 def retrieve_raw_data() -> str:
