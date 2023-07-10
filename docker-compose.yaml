@@ -1,0 +1,19 @@
+version: '3'
+
+networks:
+  demo-net:
+    driver: bridge
+
+services:
+  my-app:
+    image: demo-image:lastest
+    container_name: demo-app
+    networks:
+        - demo-net
+    restart: always
+    ports:
+        - "80:5000"    
+    deploy:
+        resources:
+            limits:
+                memory: 256M
